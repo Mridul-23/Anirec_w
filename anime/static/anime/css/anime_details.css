@@ -1,0 +1,144 @@
+:root {
+    --background-color: #121212;
+    --primary-text-color: #e0e0e0;
+    --secondary-text-color: #b0b0b0;
+    --accent-color: #3f3f3f;
+    --highlight-color: #88c2f4;
+    --card-background-color: #1e1e1e;
+    --section-background-color: #2a2a2a;
+    --box-shadow-color: rgba(0, 0, 0, 0.5);
+    --border-radius: 10px;
+    --transition-speed: 0.3s;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    color: var(--highlight-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--highlight-color);
+}
+
+a:hover {
+    color: lighten(var(--highlight-color), 10%);
+}
+
+.anime-details-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-bottom: 40px;
+    background-color: var(--card-background-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px var(--box-shadow-color);
+}
+
+.anime-poster-container {
+    flex: 1;
+    max-width: 300px;
+    margin-right: 20px;
+}
+
+.anime-poster-image {
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px var(--box-shadow-color);
+}
+
+.anime-meta-info p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+}
+
+.anime-info {
+    flex: 2;
+    padding: 20px;
+    background-color: var(--section-background-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px var(--box-shadow-color);
+}
+
+.anime-info p {
+    margin: 10px 0;
+    font-size: 1em;
+}
+
+.statistics-section, .score-distribution-section, .recommendations-section {
+    background-color: var(--card-background-color);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px var(--box-shadow-color);
+}
+
+.statistics-section p, .score-distribution-section ul li {
+    color: var(--secondary-text-color);
+}
+
+.score-distribution-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.score-distribution-section ul li {
+    margin: 5px 0;
+}
+
+.score-distribution-section ul li:before {
+    content: '•';
+    color: var(--highlight-color);
+    margin-right: 10px;
+}
+
+.recommendations-slider {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--highlight-color) var(--section-background-color);
+    align-items: center;
+}
+
+.recommendations-slider::-webkit-scrollbar {
+    height: 8px;
+}
+
+.recommendations-slider::-webkit-scrollbar-thumb {
+    background-color: var(--highlight-color);
+    border-radius: var(--border-radius);
+}
+
+.recommendation-card {
+    background-color: var(--section-background-color);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    margin-right: 10px;
+    min-width: 150px;
+    box-shadow: 0 4px 10px var(--box-shadow-color);
+    transition: transform var(--transition-speed);
+    zoom: 120%;
+}
+
+.recommendation-card:hover {
+    transform: scale(1.05);
+}
+
+.recommendation-poster {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.recommendation-title {
+    color: var(--primary-text-color);
+    text-align: center;
+    margin-top: 10px;
+}

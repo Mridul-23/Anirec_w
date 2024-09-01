@@ -1,0 +1,149 @@
+{% extends "anime/base.html" %}
+
+{% block title %} ANIREC - Dive into the World of Anime {% endblock %}
+
+{% load static %}
+{% block custom_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'anime/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>#Dive into the World of Anime</h1>
+            <h3>Where Your Next Favorite Show Awaits!</h3>
+            <div class="hero-buttons">
+                <button onclick="scrollToSection('search')">Explore Now</button>
+                <button onclick="scrollToSection('community')">Join the Community</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="parallax parallax-1">
+        <div class="content">
+            <h2>Welcome! Explore the vast world of anime with over 14,000 entries.</h2>
+            <a href="{% url 'anime:search_anime' %}">
+                <button>Browse Collection</button>
+            </a>
+        </div>
+    </section>
+
+    <section id="search" class="search">
+        <h2>Find Your Next Favorite Anime</h2>
+            <form method="GET" action="{% url 'anime:search_anime' %}" class="search-bar-container">
+            <input type="text" placeholder="Search anime..." class="search-bar" name="q" value="{{ query }}" autocomplete="off">
+            </form>
+    </section>
+
+
+
+    <section id="admin-recommendations" class="admin-recommendations">
+        <h2>Admin's Picks</h2>
+        <div class="recommendations">
+            {% for anime in anime_data %}
+                <a href="{% url 'anime:anime_details' anime.unique_id %}" class="recommend-link" title="{{anime.name}}">
+                    <div class="anime-card">
+                        <img src="{{ anime.imagelink }}" alt="{{ anime.name }}">
+                        <h3>{{ anime.name }}</h3>
+                        <button>Watch Now</button>
+                    </div>
+                </a>
+            {% empty %}
+                <p>No recommendations available at the moment.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="parallax parallax-2">
+        <div class="content">
+            <h2>Discover Anime by Genre</h2>
+        </div>
+    </section>
+
+    <section id="genre-slider" class="genre-slider">
+        <h2>Explore by Genre</h2>
+        <div class="genre">
+            <h3>Action</h3>
+            <div class="genre-slider-container">
+                {% for anime in action_anime_data %}
+                <a href="{% url 'anime:anime_details' anime.unique_id %}" class="recommend-link" title="{{ anime.name }}">
+                    <div class="genre-slide">
+                        <img src="{{ anime.imagelink }}" alt="{{ anime.name }}">
+                        <h4>{{ anime.name }}</h4>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="genre">
+            <h3>Adventure</h3>
+            <div class="genre-slider-container">
+                {% for anime in adventure_anime_data %}
+                <a href="{% url 'anime:anime_details' anime.unique_id %}" class="recommend-link">
+                    <div class="genre-slide">
+                        <img src="{{ anime.imagelink }}" alt="{{ anime.name }}">
+                        <h4>{{ anime.name }}</h4>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="genre">
+            <h3>Romance</h3>
+            <div class="genre-slider-container">
+                {% for anime in romance_anime_data %}
+                <a href="{% url 'anime:anime_details' anime.unique_id %}" class="recommend-link">
+                    <div class="genre-slide">
+                        <img src="{{ anime.imagelink }}" alt="{{ anime.name }}">
+                        <h4>{{ anime.name }}</h4>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <h2>What Our Users Are Saying</h2>
+        <div class="testimonial-cards">
+            <div class="testimonial-card">
+                <p>"This website is amazing! I found so many new shows to watch."</p>
+                <h4>- Manoj</h4>
+            </div>
+            <div class="testimonial-card mid-card">
+                <p>"I love the recommendations. It’s like it knows my taste!"</p>
+                <h4>- Manish</h4>
+            </div>
+            <div class="testimonial-card">
+                <p>"The admin’s picks are spot on. Definitely worth checking out."</p>
+                <h4>- Karan</h4>
+            </div>
+        </div>
+    </section>
+
+    <section id="community" class="parallax parallax-3">
+        <div class="content">
+            <h2>Join a Community of Anime Lovers</h2>
+        </div>
+    </section>
+
+    <section id="faq" class="faq">
+        <h2>Have Questions? We’ve Got Answers!</h2>
+        <div class="faq-item">
+            <h3>How can I get personalized recommendations?</h3>
+            <p>You can get personalized recommendations by signing up and interacting with our platform. Our AI-powered system will learn your preferences and suggest anime that matches your taste.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is Anirec free to use?</h3>
+            <p>Yes, Anirec is completely free to use. We offer premium features for those who want an enhanced experience, but the core platform is available to everyone.</p>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'anime/js/home.js' %}"></script>
+{% endblock %}

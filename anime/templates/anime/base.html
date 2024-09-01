@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'anime/css/base.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'anime/images/favicon.png' %}">
+    {% block custom_css %}{% endblock %}
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/">ANIREC</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'user:user_home' %}">Profile</a></li>
+                <li><a href="{% url 'anime:search_anime' %}">Search</a></li>
+                <li><a href="#admin-recommendations">Recommendation</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'user:logout' %}" draggable="false">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'user:login' %}" draggable="false">Login</a></li>
+                {% endif  %}
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    {% block content %}{% endblock %}
+
+        <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- About Us Section -->
+            <div class="footer-section about">
+                <h3>About ANIREC</h3>
+                <p>ANIREC is your go-to platform for discovering, recommending, and diving deep into the world of anime. Whether you're a seasoned otaku or a newbie, we've got something for everyone.</p>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Recommendation</a></li>
+                    <li><a href="#">Genres</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="footer-section contact">
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mridulnarula23@gmail.com" >support@anirec.com</a></p>
+                <p>Phone: +91 9817100964</p>
+                <p>Address: Punjab, India</p>
+            </div>
+
+            <!-- Newsletter Subscription Section -->
+            <div class="footer-section newsletter">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for the latest anime recommendations and news!</p>
+                <form action="#" method="post">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="footer-social">
+            <h3>Connect with Us</h3>
+            <a href="https://www.linkedin.com/in/mridul-narula-55338524b/" target="_blank">LinkedIn</a>
+            <a href="https://github.com/Mridul-23/" target="_blank">GitHub</a>
+            <a href="https://www.kaggle.com/mridulnarula" target="_blank">Kaggle</a>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 ANIREC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- extra js -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% extends "anime/base.html" %}
+
+{% block title %}
+    {% if query %}
+        {{ query }} - Search anime
+    {% else %}
+        Search Your Favorites
+    {% endif %}
+{% endblock %}
+
+{% load static %}
+{% block custom_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'anime/css/search.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="search-page">
+    <!-- Main Search Bar -->
+    <div class="search-bar-container">
+        <form method="GET" action="{% url 'anime:search_anime' %}">
+            <div class="choice-wrapper">
+                <label for="choice">Filter by: </label>
+                <select name="filter" id="choice">
+                    <option value="popularity" {% if anime_filter == 'popularity' %}selected{% endif %}>Popularity</option>
+                    <option value="name" {% if anime_filter == 'name' %}selected{% endif %}>Name</option>
+                    <option value="ranked" {% if anime_filter == 'ranked' %}selected{% endif %}>Relevance</option>
+                    <option value="favorites" {% if anime_filter == 'favorites' %}selected{% endif %}>Favorites</option>
+                </select>
+            </div>
+            <input type="text" id="anime-search-bar" name="search" placeholder="Search for Anime..." value="{{ query }}"
+                autocomplete="off">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Grid Container -->
+    {% if anime_list %}
+    <div class="anime-grid">
+        {% for anime in anime_list %}
+        <a href="{% url 'anime:anime_details' anime.unique_id %}" class="anime-card" title="{{ anime.name }}">
+            <div class="anime-item">
+                <img src="{{ anime.imagelink }}" alt="{{ anime.name }}" class="anime-poster">
+                <div class="anime-info">
+                    <h3>{{ anime.name }}</h3>
+                    <p>{{ anime.name_english }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+        <a href="?search={{ query }}&page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+        <a href="?search={{ query }}&page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+    {% else %}
+    <p style="text-align: center;">No results found for "{{ query }}"</p>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'anime/js/search.js' %}"></script>
+{% endblock %}

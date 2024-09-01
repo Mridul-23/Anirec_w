@@ -1,0 +1,82 @@
+{% extends "anime/base.html" %}
+
+{% block title %} {{ anime.name }} - Anime details{% endblock %}
+
+{% load static %}
+{% block custom_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'anime/css/anime_details.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="anime-details-container">
+    <div class="anime-poster-container">
+        <img src="{{ anime.imagelink }}" alt="{{ anime.name }}" class="anime-poster-image">
+        <div class="anime-meta-info">
+            <p class="anime-studio">Studio: {{ anime.studio.name }}</p>
+            <p class="anime-demographic">Demographic: {{ anime.demographic.name }}</p>
+            <p class="anime-genre">Genres: 
+                {% for genre in anime.genre.all %}
+                    {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p class="anime-rating">Rating: {{ anime.rating.name }}</p>
+            <p class="anime-source">Source: {{ anime.source.name }}</p>
+            <p class="anime-type">Type: {{ anime.typeof.name }}</p>
+        </div>
+    </div>
+    <div class="anime-info">
+        <h1 class="anime-title">{{ anime.name }}</h1>
+        <p class="anime-english-title">English Title: {{ anime.name_english }}</p>
+        <p class="anime-score">Score: {{ anime.score }} / 10 (Scored by {{ anime.scored_by }} users)</p>
+        <p class="anime-ranked">Ranked: #{{ anime.ranked }}</p>
+        <p class="anime-popularity">Popularity: #{{ anime.popularity }}</p>
+        <p class="anime-members">Members: {{ anime.members }}</p>
+        <p class="anime-favorites">Favorites: {{ anime.favorites }}</p>
+        <p class="anime-synopsis">{{ anime.synopsis }}</p>
+        <p class="anime-episodes">Total Episodes: {{ anime.total_episodes }}</p>
+        <p class="anime-premiered">Premiered: {{ anime.premiered }}</p>
+        <p class="anime-duration">Duration per Episode: {{ anime.duration_per_ep }}</p>
+        <p class="anime-aired">Aired: {{ anime.aired }}</p>
+    </div>
+</div>
+
+<div class="statistics-section">
+    <h2>User Statistics</h2>
+    <p>Watching: {{ anime.watching }}</p>
+    <p>Completed: {{ anime.completed }}</p>
+    <p>On Hold: {{ anime.on_hold }}</p>
+    <p>Dropped: {{ anime.dropped }}</p>
+    <p>Plan to Watch: {{ anime.plan_to_watch }}</p>
+    <p>Total Users: {{ anime.total }}</p>
+</div>
+
+<div class="score-distribution-section">
+    <h2>Score Distribution</h2>
+    <ul>
+        <li>Scored 10 by: {{ anime.scored_10_by }} users</li>
+        <li>Scored 9 by: {{ anime.scored_9_by }} users</li>
+        <li>Scored 8 by: {{ anime.scored_8_by }} users</li>
+        <li>Scored 7 by: {{ anime.scored_7_by }} users</li>
+        <li>Scored 6 by: {{ anime.scored_6_by }} users</li>
+        <li>Scored 5 by: {{ anime.scored_5_by }} users</li>
+        <li>Scored 4 by: {{ anime.scored_4_by }} users</li>
+        <li>Scored 3 by: {{ anime.scored_3_by }} users</li>
+        <li>Scored 2 by: {{ anime.scored_2_by }} users</li>
+        <li>Scored 1 by: {{ anime.scored_1_by }} users</li>
+    </ul>
+</div>
+
+<div class="recommendations-section">
+    <h2>Similar Anime Recommendations</h2>
+    <div class="recommendations-slider">
+        {% for similar_anime in similar_animes %}
+            <a href="{% url 'anime:anime_details' similar_anime.unique_id %}">
+                <div class="recommendation-card">
+                    <img src="{{ similar_anime.imagelink }}" alt="{{ similar_anime.name }}" class="recommendation-poster">
+                    <p class="recommendation-title">{{ similar_anime.name }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
