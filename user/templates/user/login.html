@@ -1,0 +1,32 @@
+{% extends "anime/base.html" %}
+
+{% block title %} {{ anime.name }} Login {% endblock %}
+
+{% load static %}
+{% block custom_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="login-container">
+        <h2>Login to Your Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-field">
+                {{ form.username }}
+            </div>
+            <div class="form-field">
+                {{ form.password }}
+                <button type="button" class="toggle-password">Show</button>
+            </div>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+
+        <span>Don't have an account? <a href="{% url 'user:signup' %}">Sign Up</a></span>
+    </div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="{% static 'user/js/login.js' %}"></script>
+{% endblock %}
