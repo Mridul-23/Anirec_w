@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from .models import GeneralData, AdminChoices
+from django.db.models import Q
+from .models import GeneralData, AdminChoices, Saved_anime
 from .contentfilter import recommend
+from django.contrib import messages
 # Create your views here.
 
 from django.shortcuts import render
@@ -40,9 +42,12 @@ def anime_details(request, unique_id):
     anime = get_object_or_404(GeneralData, unique_id=unique_id)
     recommendations = recommend(anime.name_english, top=12)
     similar_animes = GeneralData.objects.filter(name_english__in=recommendations)
+    is_favorite = Saved_anime.objects.filter(user=request.user, anime=anime).exists()
+    
     context = {
         'anime': anime,
         'similar_animes': similar_animes,
+        'is_favorite': is_favorite
     }
     return render(request, 'anime/anime_details.html', context=context)
 
@@ -75,6 +80,21 @@ def search_anime(request):
         'query': query,
         'anime_filter': anime_filter
     }
-
-
     return render(request, 'anime/search.html', context=context)
+
+
+
+@login_required
+def save_anime(request, anime_id):
+    anime = get_object_or_404(GeneralData, unique_id=anime_id)
+    saved_anime, created = Saved_anime.objects.get_or_create(user=request.user, anime=anime)
+
+    if not created:
+        # If the anime is already saved, remove it (toggle off)
+        saved_anime.delete()
+        messages.success(request, f'{anime.name} has been removed from your favorites.')
+    else:
+        # Otherwise, it has been added to favorites
+        messages.success(request, f'{anime.name} has been added to your favorites.')
+
+    return redirect('anime:anime_details', unique_id=anime_id)

@@ -11,12 +11,29 @@
 <div class="anime-details-container">
     <div class="anime-poster-container">
         <img src="{{ anime.imagelink }}" alt="{{ anime.name }}" class="anime-poster-image">
+
+        <form method="POST" action="{% url 'anime:save_anime' anime.unique_id %}" id="favorite-form">
+            {% csrf_token %}
+            <input name="favorite-checkbox" id="favorite" type="checkbox" {% if is_favorite %}checked{% endif %} />
+            <label class="container" for="favorite" onclick="document.getElementById('favorite-form').submit();">
+                <svg class="feather feather-heart" stroke-linejoin="round" stroke-linecap="round" stroke-width="2"
+                     stroke="currentColor" fill="none" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <div class="action">
+                    <span class="option-1">Add to Favorites</span>
+                    <span class="option-2">Added to Favorites</span>
+                </div>
+            </label>
+        </form>
+        
+
         <div class="anime-meta-info">
             <p class="anime-studio">Studio: {{ anime.studio.name }}</p>
             <p class="anime-demographic">Demographic: {{ anime.demographic.name }}</p>
-            <p class="anime-genre">Genres: 
+            <p class="anime-genre">Genres:
                 {% for genre in anime.genre.all %}
-                    {{ genre.name }}{% if not forloop.last %}, {% endif %}
+                {{ genre.name }}{% if not forloop.last %}, {% endif %}
                 {% endfor %}
             </p>
             <p class="anime-rating">Rating: {{ anime.rating.name }}</p>
@@ -70,12 +87,12 @@
     <h2>Similar Anime Recommendations</h2>
     <div class="recommendations-slider">
         {% for similar_anime in similar_animes %}
-            <a href="{% url 'anime:anime_details' similar_anime.unique_id %}">
-                <div class="recommendation-card">
-                    <img src="{{ similar_anime.imagelink }}" alt="{{ similar_anime.name }}" class="recommendation-poster">
-                    <p class="recommendation-title">{{ similar_anime.name }}</p>
-                </div>
-            </a>
+        <a href="{% url 'anime:anime_details' similar_anime.unique_id %}">
+            <div class="recommendation-card">
+                <img src="{{ similar_anime.imagelink }}" alt="{{ similar_anime.name }}" class="recommendation-poster">
+                <p class="recommendation-title">{{ similar_anime.name }}</p>
+            </div>
+        </a>
         {% endfor %}
     </div>
 </div>
