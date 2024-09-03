@@ -42,8 +42,10 @@ def anime_details(request, unique_id):
     anime = get_object_or_404(GeneralData, unique_id=unique_id)
     recommendations = recommend(anime.name_english, top=12)
     similar_animes = GeneralData.objects.filter(name_english__in=recommendations)
-    is_favorite = Saved_anime.objects.filter(user=request.user, anime=anime).exists()
-    
+    is_favorite = False
+    if request.user.is_authenticated:
+        is_favorite = Saved_anime.objects.filter(user=request.user, anime=anime).exists()
+
     context = {
         'anime': anime,
         'similar_animes': similar_animes,
@@ -84,7 +86,7 @@ def search_anime(request):
 
 
 
-@login_required
+@login_required(login_url='user:login')
 def save_anime(request, anime_id):
     anime = get_object_or_404(GeneralData, unique_id=anime_id)
     saved_anime, created = Saved_anime.objects.get_or_create(user=request.user, anime=anime)
