@@ -64,6 +64,7 @@
 
 .parallax-1 {
     background-image: url('../images/parallax1.jpg');
+    
 }
 
 .parallax-2 {
@@ -87,12 +88,13 @@
     margin: 0 10px;
     cursor: pointer;
     transition: transform 0.3s ease;
+    background-color: #8bc9ff;
 }
 .parallax .content h2 {
-    color: var(--highlight-color);
+    color: #8bc9ff;
     font-size: 2.5rem;
     text-align: center;
-    text-shadow: 2px 2px 10px var(--shadow-dark);
+    text-shadow: 4px 4px 8px var(--shadow-dark);
 }
 
 .search {

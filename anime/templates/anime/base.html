@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-
+    <script src='https://kit.fontawesome.com/5de24f2f58.js' crossorigin='anonymous'></script>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'anime/css/base.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'anime/images/favicon.png' %}">
@@ -13,7 +13,7 @@
 
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar">
+    <nav class="navbar" id="top">
         <div class="nav-container">
             <div class="logo">
                 <a href="/">ANIREC</a>
@@ -24,7 +24,6 @@
                 <li><a href="{% url 'anime:search_anime' %}">Search</a></li>
                 <li><a href="#admin-recommendations">Recommendation</a></li>
                 <li><a href="#about-us">About Us</a></li>
-                <li><a href="#contact">Contact</a></li>
 
                 {% if request.user.is_authenticated %}
                 <li><a href="{% url 'user:logout' %}" draggable="false">Logout</a></li>
@@ -40,7 +39,7 @@
     {% block content %}{% endblock %}
 
         <!-- Footer -->
-    <footer>
+    <footer id="about-us">
         <div class="footer-container">
             <!-- About Us Section -->
             <div class="footer-section about">
@@ -87,6 +86,10 @@
             <a href="https://www.kaggle.com/mridulnarula" target="_blank">Kaggle</a>
         </div>
 
+        <div class="footer-section back-to-top">
+            <i class='fas fa-angle-up'></i>
+        </div>
+
         <div class="footer-bottom">
             <p>&copy; 2024 ANIREC. All rights reserved.</p>
         </div>
@@ -94,5 +97,6 @@
 
     <!-- extra js -->
     {% block extra_js %}{% endblock %}
+    <script src="{% static 'anime/js/base.js' %}"></script>
 </body>
 </html>

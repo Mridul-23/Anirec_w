@@ -59,6 +59,8 @@ def search_anime(request):
     anime_filter = request.GET.get('filter', 'popularity')
     print(f"Search Query: {query}")
     anime_list = GeneralData.objects.all()
+    # to avoid any template mismatch in case of favorites, we will get filter before updating it
+    anifilter = anime_filter
 
     if anime_filter == 'favorites':
         anime_filter = f'-{anime_filter}'
@@ -80,7 +82,7 @@ def search_anime(request):
         'anime_list': page_obj,
         'page_obj': page_obj,
         'query': query,
-        'anime_filter': anime_filter
+        'anime_filter': anifilter
     }
     return render(request, 'anime/search.html', context=context)
 

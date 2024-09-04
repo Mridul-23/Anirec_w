@@ -101,6 +101,7 @@ footer {
     color: #bbbbbb;
     padding: 40px 20px;
     border-top: 2px solid var(--highlight-color);
+    height: 90vh;
 }
 
 .footer-container {
@@ -196,6 +197,38 @@ footer {
 
 .footer-social a:hover {
     color: var(--footer-link-hover);
+}
+
+.back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--highlight-color);
+    min-width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+.back-to-top.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px var(--shadow-dark);
+}
+
+.back-to-top i {
+    font-size:1.5em;
+    color: var(--secondary-bg);
+    text-align: center;
+}
+
+.back-to-top:active {
+    min-width: 1.85em;
+    height: 1.85em;
 }
 
 .footer-bottom {
