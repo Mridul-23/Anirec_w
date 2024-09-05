@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "anime",
     "user",
+    "anirec",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -121,7 +122,8 @@ STATIC_URL = "static/"
 
 STATICFILES_DIR = [
     BASE_DIR / "anime" / "static",
-    BASE_DIR / "user" / "static"
+    BASE_DIR / "user" / "static",
+    BASE_DIR / "anirec" / "static"
 ]
 
 

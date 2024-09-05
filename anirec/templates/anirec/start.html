@@ -1,0 +1,25 @@
+{% extends 'anime/base.html' %}
+
+{% block title %} Start Recommender {% endblock %}
+
+{% block custom_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'anirec/css/start.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to Anime Recommender!</h1>
+    <p>Are you ready to discover your next favorite anime? Our intelligent recommendation system uses advanced algorithms to suggest anime tailored just for you. Here’s how it works:</p>
+    <ul>
+        <li><strong>Start:</strong> Begin by telling us about three anime that you love and rate them.</li>
+        <li><strong>Get Recommendations:</strong> Based on your ratings, our system will recommend three new anime that you might enjoy.</li>
+        <li><strong>Rate Recommendations:</strong> Rate these recommendations, and the system will learn from your preferences to improve future suggestions.</li>
+        <li><strong>Save Your Favorites:</strong> If you like any of the recommended anime, you can save them to your list for easy access later!</li>
+    </ul>
+    <p>Our recommender uses a combination of content-based filtering and reinforcement learning to provide you with the best possible suggestions. By participating, you'll help improve our recommendations while finding new anime you’ll love.</p>
+    <p>Ready to begin your anime discovery journey? Click the button below to start the process!</p>
+    <a href="{% url 'anirec:recommender' %}" class="btn btn-primary">Start Now</a>
+</div>
+{% endblock %}
+

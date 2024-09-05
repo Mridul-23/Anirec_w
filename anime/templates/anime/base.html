@@ -22,7 +22,7 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="{% url 'user:user_home' %}">Profile</a></li>
                 <li><a href="{% url 'anime:search_anime' %}">Search</a></li>
-                <li><a href="#admin-recommendations">Recommendation</a></li>
+                <li><a href="{% url 'anirec:start' %}">Recommendation</a></li>
                 <li><a href="#about-us">About Us</a></li>
 
                 {% if request.user.is_authenticated %}
@@ -51,9 +51,9 @@
             <div class="footer-section links">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Recommendation</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'user:user_home' %}">Profile</a></li>
+                    <li><a href="{% url 'anirec:start' %}">Recommendation</a></li>
                     <li><a href="#">Genres</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>

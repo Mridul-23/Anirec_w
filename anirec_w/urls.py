@@ -22,5 +22,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', home),
     path('anime/', include('anime.urls', namespace='anime')),
-    path('user/', include('user.urls', namespace='user'))
+    path('user/', include('user.urls', namespace='user')),
+    path('anirec/', include('anirec.urls', namespace='anirec'))
 ]

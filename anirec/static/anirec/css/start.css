@@ -1,0 +1,47 @@
+/* Ensure these styles are added to your base CSS file or a specific CSS file for start.html */
+.container {
+    text-align: center;
+    margin-top: 50px;
+    margin-left: 1em;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: var(--highlight-color);
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: var(--highlight-color);
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1em;
+    margin-bottom: 10em;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #77b0d4;
+}
