@@ -20,7 +20,7 @@
     font-weight: bold;
     text-align: center;
     margin-bottom: 24px;
-    font-size: 24px;
+    font-size: 26px;
 }
 
 .login-container span {
@@ -33,6 +33,7 @@
 .login-container span a{
     color: var(--highlight-color);
     text-decoration-style: dotted;
+    text-underline-offset: 1.8px;
 }
 
 .login-container span a:hover{
@@ -53,6 +54,9 @@ input[type="text"], input[type="password"] {
     border-radius: 8px;
     font-size: 16px;
     box-sizing: border-box;
+    outline-color: rgb(111, 111, 223);
+    outline-offset: 0.5px;
+    outline-width: 0.5px
 }
 
 .toggle-password {
@@ -63,7 +67,7 @@ input[type="text"], input[type="password"] {
     font: 0.75em Arial;
     top: 48%;
     transform: translateY(-50%);
-    transform: translateX(-120%);
+    transform: translateX(-140%);
     cursor: pointer;
     border: none;
     background: none;

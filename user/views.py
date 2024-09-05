@@ -27,10 +27,21 @@ def login(request):
             return redirect('user:user_home')
     return render(request, 'user/login.html', {'form': form})
 
-@login_required(login_url='login')
+
+@login_required(login_url='user:login')
 def user_home(request):
     saved_anime = Saved_anime.objects.filter(user=request.user)
-    return render(request, 'user/user_home.html', {'saved_anime': saved_anime})
+    
+    # You can print out the anime names to debug
+    for saved in saved_anime:
+        print(saved.anime.name)
+    
+    context = {
+        'user': request.user,
+        'saved_anime': saved_anime
+    }
+    return render(request, 'user/user_home.html', context=context)
+
 
 
 def logout(request):

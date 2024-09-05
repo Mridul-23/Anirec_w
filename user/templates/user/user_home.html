@@ -1,5 +1,5 @@
 {% extends "anime/base.html" %}
-{% block title %} User Home {% endblock %}
+{% block title %} {{ user.username }} - Home{% endblock %}
 
 {% block custom_css %}
 {% load static %}
@@ -8,28 +8,33 @@
 
 {% block content %}
 <div class="user-home-container">
-    <div class="user-info">
-        <h1>Welcome, {{ user.username }}</h1>
-        <p>Member since: {{ user.date_joined }}</p>
-        <p>Email: {{ user.email }}</p>
+    <div class="welcome-section">
+        <h1>Welcome, {{ user.username }}!</h1>
+        <p><strong>Member since:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p>Explore your personalized dashboard below, where you can keep track of your favorite anime and stay updated on your activities.</p>
     </div>
 
-    <div class="user-anime-list">
-        <h2>Your Anime List</h2>
-        <div class="anime-list">
-            {% for anime in user.anime_list.all %}
-            <a href="{% url 'anime:anime_details' anime.unique_id %}" class="anime-card" title="{{ anime.name }}">
-                <div class="anime-item">
-                    <img src="{{ anime.imagelink }}" alt="{{ anime.name }}" class="anime-poster">
-                    <div class="anime-info">
-                        <h3>{{ anime.name }}</h3>
-                        <p>{{ anime.name_english }}</p>
+    <div class="saved-anime-section">
+        <h2>Your Saved Anime</h2>
+        {% if saved_anime %}
+        <div class="anime-grid">
+            {% for saved in saved_anime %}
+            <a href="{% url 'anime:anime_details' saved.anime.unique_id %}">
+                <div class="anime-card">
+                    <img src="{{ saved.anime.imagelink }}" alt="{{ saved.anime.name }}" class="anime-image">
+                    <div class="anime-details">
+                        <h3>{{ saved.anime.name }}</h3>
+                        <p><strong>Saved on:</strong> {{ saved.saved_at|date:"F j, Y" }}</p>
+                        <a href="{% url 'anime:anime_details' saved.anime.id %}" class="view-details-btn">View Details</a>
                     </div>
                 </div>
             </a>
             {% endfor %}
         </div>
+        {% else %}
+        <p>You haven't saved any anime yet. Start exploring and add your favorite shows to your list!</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
-    
