@@ -5,5 +5,7 @@ app_name = 'anirec'
 
 urlpatterns = [
     path('start/', views.start, name='start'),
-    path('recommender/', views.recommendation_process, name='recommender')
+    path('search/', views.search_anime, name='search_anime'),
+    path('recommender/', views.recommender_view, name='recommender'),
+    path('recommendations/', views.get_recommendations, name='recommendations'),
 ]   

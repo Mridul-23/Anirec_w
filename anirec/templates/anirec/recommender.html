@@ -4,9 +4,55 @@
 
 {% block custom_css %}
 {% load static %}
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css">
 <link rel="stylesheet" type="text/css" href="{% static 'anirec/css/recommender.css' %}">
 {% endblock %}
 
 {% block content %}
-<div>Main Loop</div>
+<main>
+    <section class="introduction">
+        <h2>Select 3 of Your Favourite Shows</h2>
+        <h2>And Rate Them From 1-5</h2>
+    </section>
+    
+    <form id="shows-form" action="{% url 'anirec:recommendations' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="show1">Show 1:</label>
+            <div id="autocomplete1" class="autocomplete">
+                <input title="show1" class="autocomplete-input" type="text" name="show1" value="Goldfish Warning!" required>
+                <div class="rating-inputs">
+                    <input type="number" name="show1_rating" min="1" max="5" placeholder="show1 rating" required>
+                </div>
+                <ul class="autocomplete-result-list"></ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="show2">Show 2:</label>
+            <div id="autocomplete2" class="autocomplete">
+                <input title="show2" class="autocomplete-input" type="text" name="show2" value="Tomorrow's Joe 2" required>
+                <div class="rating-inputs">
+                    <input type="number" name="show2_rating" min="1" max="5" placeholder="show2 rating" required>
+                </div>
+                <ul class="autocomplete-result-list"></ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="show3">Show 3:</label>
+            <div id="autocomplete3" class="autocomplete">
+                <input title="show3" class="autocomplete-input" type="text" name="show3" value="Assassination Classroom Second Season" required>
+                <div class="rating-inputs">
+                    <input type="number" name="show3_rating" min="1" max="5" placeholder="show3 rating" required>
+                </div>
+                <ul class="autocomplete-result-list"></ul>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'anirec/js/recommender.js' %}"></script>
 {% endblock %}

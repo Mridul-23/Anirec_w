@@ -1,47 +1,68 @@
-/* Ensure these styles are added to your base CSS file or a specific CSS file for start.html */
-.container {
+.recommender-container {
+    background-color: var(--primary-bg);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px var(--shadow-dark);
+    max-width: 75%;
+    margin: 50px auto;
+    margin-bottom: 100px;
     text-align: center;
-    margin-top: 50px;
-    margin-left: 1em;
-}
-
-h1 {
-    font-size: 2.5rem;
-    color: var(--highlight-color);
-    margin-bottom: 20px;
-}
-
-p {
-    font-size: 1.2rem;
     color: var(--text-color);
-    margin-bottom: 20px;
-    text-align: left;
 }
 
-ul {
+.recommender-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: var(--highlight-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.recommender-description {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: var(--text-light);
+}
+
+.recommender-steps {
     list-style-type: none;
     padding: 0;
+    margin: 20px 0;
 }
 
-ul li {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+.recommender-steps li {
+    font-size: 1.2em;
+    background-color: var(--secondary-bg);
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px var(--shadow-light);
     text-align: left;
 }
 
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: var(--highlight-color);
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 1em;
-    margin-bottom: 10em;
-    transition: background-color 0.3s;
+.recommender-steps li strong {
+    color: var(--highlight-color);
+    font-weight: bold;
 }
 
-.btn:hover {
-    background-color: #77b0d4;
+.recommender-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    text-transform: uppercase;
+    background-color: var(--highlight-color);
+    color: var(--primary-bg);
+    border: none;
+    font-weight: 500;
+    border-radius: 0.75em;
+    text-decoration: none;
+    transition: background-color 0.25s ease,
+    color 0.25s ease, transform 0.25s ease;
+}
+    
+.recommender-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transform: scale(0.975);
 }

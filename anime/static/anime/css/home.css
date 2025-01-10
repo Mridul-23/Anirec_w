@@ -22,6 +22,7 @@
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-user-select: none;
     user-select: none;
 }
 

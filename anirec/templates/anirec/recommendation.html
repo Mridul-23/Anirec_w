@@ -1,0 +1,49 @@
+{% extends 'anime/base.html' %}
+
+{% block title %} Recommendation {% endblock %}
+
+{% block custom_css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'anirec/css/recommendation.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <form method="post" action="{% url 'anirec:get_recommendations' %}">
+        {% csrf_token %}
+      {% for show in data %}
+      <div class="show-card">
+        <div class="show-thumbnail">
+          <img src="{{ show.imagelink }}" alt="{{ show.name }} image" class="show-image" />
+        </div>
+        <div class="show-details">
+          <h2>{{ show.name_english }}</h2>
+          <p><strong>Genre:</strong> 
+            {% for genre in show.genre.all %}
+              {{ genre.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
+          {% if show.demographic.name|length != 0 %}
+          <p><strong>Demographic:</strong> {{ show.demographic.name }}</p>
+          {% endif %}
+          <p><strong>Rating:</strong> {{ show.rating.name }}</p>
+          <p><strong>Popularity:</strong> {{ show.popularity }}</p>
+          <div class="synopsis-container">
+            <p>{{ show.synopsis }}</p>
+          </div>
+          <div class="actions">
+            <label for="user-rating-{{ forloop.counter }}">Your Rating:</label>
+            <input type="number" title="counter" name="show{{ forloop.counter }}_rating" min="1" max="5" required />
+            <a href="{% url 'anirec:show_detail' show.unique_id %}" class="details-button">More Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <button type="submit" class="submit-button">Next</button>
+    </form>
+  </main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'anirec/js/recommendation.js' %}"></script>
+{% endblock %}
