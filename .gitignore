@@ -1,3 +1,34 @@
-.venv
-__pycache__
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+db.sqlite3
+
+# Environment / secrets
+.env
+.env.*
+
+# IDE / editor files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Large generated/model artifacts
 *.pkl
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
