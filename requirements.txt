@@ -1,0 +1,7 @@
+# ANIREC Web dependencies
+# Django version is taken from the project's settings.py.
+Django==5.1
+
+# Used by the UCB recommender and similarity processing.
+numpy
+pandas
