@@ -10,126 +10,26 @@ The application is built with **Django SSR, HTML templates, CSS, and JavaScript*
 
 ## ✨ Features
 
-### 🔎 Anime Discovery
-
-- Browse an anime catalog with poster artwork and metadata.
-- Search by anime title.
-- Sort/filter search results by fields such as popularity.
-- Paginated search results.
-- Dedicated anime detail pages.
-- View similar anime based on content similarity.
-- Browse curated/homepage anime sections.
-
-### 🤖 Personalized Recommendations
-
-ANIREC's interactive recommender starts with three anime selected by the user.
-
-1. Select three anime you like.
-2. Give each anime a rating from **1–5**.
-3. The system initializes three recommendation arms.
-4. A UCB policy chooses which arm to exploit/explore.
-5. The selected arm produces three new anime using the similarity matrix.
-6. Rate the recommendations.
-7. The ratings become feedback for the selected arm.
-8. The process repeats, adapting future recommendations to the user's feedback.
-
-### 👤 User Accounts
-
-- User registration.
-- Login/logout.
-- Authenticated user dashboard.
-- Saved/favorite anime.
-- Toggle anime in and out of the saved list.
-
-### 🎨 Web Interface
-
-- Django server-side rendered pages.
-- Dark-themed interface.
-- Reusable navigation/layout templates.
-- Custom CSS and JavaScript for the anime, recommendation, and user sections.
-- Anime poster/image presentation throughout the application.
+* 🔎 **Anime Discovery** — Browse, search, filter, and explore anime with detailed metadata and similar-anime recommendations.
+* 🤖 **Personalized Recommendations** — Rate three anime and receive adaptive recommendations using a UCB multi-armed bandit.
+* 👤 **User Accounts** — Registration, login/logout, dashboard, and saved/favorite anime.
+* 🎨 **Web Interface** — Django SSR application with custom HTML, CSS, and JavaScript.
 
 ---
 
 ## 🧠 Recommendation System
 
-ANIREC Web uses two related recommendation mechanisms.
+ANIREC combines **content-based similarity** with a **UCB multi-armed bandit**.
 
-### 1. Content-Based Similarity
-
-Anime similarity is calculated from a precomputed similarity matrix.
-
-When an anime detail page is opened, ANIREC finds similar anime using the anime's corresponding row in the similarity matrix and returns the highest-ranked candidates.
-
-The similarity matrix is stored locally as:
+* **Content-Based Similarity:** Uses the precomputed `similarity_matrix.pkl` to find similar anime.
+* **UCB Bandit:** Maintains three recommendation arms and uses user ratings to balance **exploration** and **exploitation**.
+* Each round selects the highest-scoring arm, generates three recommendations, and uses the user's ratings as feedback for future rounds.
 
 ```text
-similarity_matrix.pkl
+User Ratings → UCB Arm Selection → Similarity Search
+      ↑                                  │
+      └────── Rate Recommendations ──────┘
 ```
-
-The application uses this matrix rather than recomputing the full similarity calculation for every request.
-
-### 2. UCB Multi-Armed Bandit
-
-The personalized recommender uses **Upper Confidence Bound (UCB)** to choose between three recommendation arms.
-
-Each arm stores:
-
-- Anime associated with that arm
-- Ratings received by recommendations from that arm
-- Number of times the arm has been selected
-
-The UCB score is calculated as:
-
-```text
-UCB = average_rating + sqrt(2 * ln(round_no) / t)
-```
-
-where:
-
-- `average_rating` = average feedback received by the arm
-- `round_no` = current recommendation round
-- `t` = number of times the arm has been selected
-
-The arm with the highest UCB score is selected.
-
-This provides a balance between:
-
-- **Exploitation** — favoring arms that have received better ratings.
-- **Exploration** — giving less-selected arms an opportunity to perform better.
-
-The selected arm then uses content similarity to generate candidate anime, removes titles already recommended to the user, and returns three new recommendations.
-
----
-
-## 🛠️ Technology Stack
-
-### Backend
-
-- **Python**
-- **Django 5.1**
-- Django ORM
-- Django authentication
-- Django sessions
-- SQLite
-
-### Recommendation / Data Processing
-
-- **NumPy**
-- **Pandas**
-- Precomputed similarity matrix
-- UCB multi-armed bandit
-
-### Frontend
-
-- HTML
-- Django Templates
-- CSS
-- JavaScript
-
-### Deployment Interfaces
-
-Django WSGI and ASGI entry points are included for deployment/server integration.
 
 ---
 
@@ -243,87 +143,6 @@ The recommendation workflow collects initial preferences and uses user ratings a
 ![ANIREC Recommender](docs/screenshots/recommender.png)
 
 > **Screenshot setup:** create `docs/screenshots/` in the repository and place the corresponding screenshots there using the filenames shown above.
-
----
-
-## 📁 Project Structure
-
-```text
-.
-├── anime/
-│   ├── management/
-│   │   └── commands/
-│   │       ├── import_anime.py
-│   │       └── import_images.py
-│   ├── static/
-│   │   └── anime/
-│   │       ├── css/
-│   │       ├── images/
-│   │       └── js/
-│   ├── templates/
-│   │   └── anime/
-│   ├── admin.py
-│   ├── apps.py
-│   ├── contentfilter.py
-│   ├── models.py
-│   ├── urls.py
-│   └── views.py
-│
-├── anirec/
-│   ├── static/
-│   │   └── anirec/
-│   │       ├── css/
-│   │       └── js/
-│   ├── templates/
-│   │   └── anirec/
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── recommender.py
-│   ├── session_helpers.py
-│   ├── urls.py
-│   └── views.py
-│
-├── anirec_w/
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-│
-├── user/
-│   ├── static/
-│   │   └── user/
-│   │       ├── css/
-│   │       └── js/
-│   ├── templates/
-│   │   └── user/
-│   ├── admin.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── urls.py
-│   └── views.py
-│
-├── db.sqlite3
-├── similarity_matrix.pkl
-├── manage.py
-├── requirements.txt
-└── .gitignore
-```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome.
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Make your changes.
-4. Test the application.
-5. Commit your changes.
-6. Push the branch.
-7. Open a pull request.
 
 ---
 
